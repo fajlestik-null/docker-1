@@ -1,12 +1,14 @@
 # Build
-FROM maven:3.9-eclipse-temurin-25-alpine
+FROM maven:3.9-eclipse-temurin-25-alpine AS build
 WORKDIR /app
 COPY pom.xml .
-COPY src .
-CMD ["mvn", "clean", "package"]
+COPY src ./src
+RUN mvn clean package
 
 # Run
-FROM openjdk:25-eclipse-temurin-alpine
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/docker-1-0.0.1-SNAPSHOT.jar app.jar
+RUN addgroup -S project-docker && adduser -S project-docker -G project-docker
+COPY --from=build --chown=project-docker:project-docker /app/target/docker-1-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
+USER project-docker
 CMD ["java", "-jar", "app.jar"]

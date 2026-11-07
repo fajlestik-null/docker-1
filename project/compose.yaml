@@ -3,14 +3,14 @@ services:
     image: redis:7-alpine
     command: redis-server --appendonly yes
     volumes:
-      - dbdata:/data
+      - db_data:/data
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       retries: 10
 
   web:
-    build: ..
+    build: .
     ports:
       - "8080:8080"
     env_file: .env
@@ -18,5 +18,18 @@ services:
       db:
         condition: service_healthy
 
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+      # NEW: Requirement 4 (Log Rotation)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 volumes:
-  dbdata:
+  db_data:
