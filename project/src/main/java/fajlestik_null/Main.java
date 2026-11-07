@@ -13,7 +13,7 @@ public class Main {
         Javalin.create(config -> {
                 config.routes.get("/", ctx -> {
                     long visits = jedis.incr("visits");
-                    ctx.result("This page has been visited " + visits + " times.");
+                    ctx.result("This page has been visited " + visits + " time(s).");
                 });
         }).start("0.0.0.0",8080);
 
