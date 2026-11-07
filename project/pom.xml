@@ -47,7 +47,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>fajlestik_null.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
