@@ -15,7 +15,7 @@ public class Main {
                     long visits = jedis.incr("visits");
                     ctx.result("This page has been visited " + visits + " times.");
                 });
-        }).start(8080);
+        }).start("0.0.0.0",8080);
 
     }
 }
