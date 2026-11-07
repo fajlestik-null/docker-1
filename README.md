@@ -3,10 +3,12 @@
 This project, created for demonstration purposes, contains a simple Javalin web application that communicates with a Redis database (via Jedis) to persistently store data.
 
 ## How to start Portainer
-To start the Portainer, navigate and run docker compose:
+To start the Portainer, navigate, run docker compose and check:
 ```bash
 cd portainer
 docker compose up -d
+docker compose ps
+docker compose logs portainer
 ```
 
 ## Ports and Access
